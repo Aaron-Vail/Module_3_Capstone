@@ -33,7 +33,7 @@ public class Weather {
 			this.highTemp = highTemp;
 		}
 		public String getForecast() {
-			return forecast;
+			return forecast.toLowerCase();
 		}
 		public void setForecast(String forecast) {
 			this.forecast = forecast;

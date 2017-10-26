@@ -19,27 +19,16 @@ public class JdbcWeatherDao implements WeatherDao {
 	public JdbcWeatherDao(DataSource ds) {
 		this.jdbcTemplate = new JdbcTemplate(ds);
 	}
-	
+
 	@Override
-	public List<Weather> getAllWeather() {
+	public List<Weather> getWeatherByParkCode(String parkCode) {
 		List<Weather> allWeather = new ArrayList<>();
-		String sqlSelectAllWeather = "SELECT * FROM weather";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSelectAllWeather);
+		String sqlSelectWeatherByCode = "SELECT * FROM weather WHERE parkcode = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSelectWeatherByCode, parkCode);
 		while(results.next()) {
 			allWeather.add(mapRowToWeather(results));
 		}
 		return allWeather;
-	}
-
-	@Override
-	public Weather getWeatherByParkCode(String parkCode) {
-		Weather weather = null;
-		String sqlSelectWeatherByCode = "SELECT * FROM weather WHERE parkcode = ?";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlSelectWeatherByCode, parkCode);
-		if(results.next()) {
-			weather = mapRowToWeather(results);
-		} 
-		return weather;
 	}
 
 	private Weather mapRowToWeather(SqlRowSet row) {
@@ -48,7 +37,7 @@ public class JdbcWeatherDao implements WeatherDao {
 		weather.setForecastValue(row.getInt("fivedayforecastvalue"));
 		weather.setLowTemp(row.getInt("low"));
 		weather.setHighTemp(row.getInt("high"));
-		weather.setForecast(row.getString("forcast"));
+		weather.setForecast(row.getString("forecast"));
 		return weather;
 	}
 }

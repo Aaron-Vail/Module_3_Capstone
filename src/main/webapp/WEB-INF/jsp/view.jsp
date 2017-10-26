@@ -55,7 +55,7 @@
 				</tr>
 				<tr>
 					<th>Quote</th>
-					<td><c:out value="${park.inspirationalQuote}"/><br><br>
+					<td><c:out value="${park.inspirationalQuote}"/><br>
 					 -<c:out value="${park.inspirationalQuoteSource}"/></td>
 				</tr>
 				<tr>
@@ -66,10 +66,24 @@
 					<th>Number of Species</th>
 					<td><c:out value="${park.numberOfSpecies}"/></td>
 				</tr>
-			</table>			
-			<div>
-				
-			</div>
+			</table>
+			<form>
+				<label for="tempType">&#x2103;</label>
+				<input type="radio" name="temperature" value="celsius" id="tempType"/>
+				<label for="tempType2">&#x2109;</label>
+				<input type="radio" name="temperature" value="fahrenheit" id="tempType2" checked/>
+			</form>
+			<%-- <c:if test="${weather.parkCode == park.parkCode}"> --%>
+			<c:forEach var="weather" items="${weather}">
+				<div>
+					<c:url var="forecastImagePath" value="/img/weather/${weather.forecast}.png"/>
+					<img src="${forecastImagePath}" alt="Colors"/>
+					<%-- <c:choose >
+						
+					</c:choose>  --%>
+				</div>
+			</c:forEach> 
+			<%-- </c:if> --%>
 		</div>
 	</section>
 </body>

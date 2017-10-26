@@ -14,18 +14,19 @@
 			<c:out value="${park.parkName}"/>
 		</div>
 		<div>
+		<c:url var="parkFormUrl" value="/parkForm"/>
 			<form:form method="POST" action="${parkFormUrl}" modelAttribute="survey">
 			<label for="parkCode">Select Favorite Park</label>
 			<form:select path="parkCode">
-				<c:forEach var="park" items="${parksList}">
-					<form:option value="${park.parkCode}">${park.parkName }</form:option>
+				<c:forEach var="park" items="${parks}">
+					<form:option value="${park.parkCode}">${park.parkName}</form:option>
 					</c:forEach>
 			</form:select>
 			
 			
-			<label for="emailAddress">Email Address</label>
-			<form:input path="emailAddress" placeholder="example@email.com"/>
-			<form:errors path="emailAddress" class="error"/>
+			<label for="email">Email Address</label>
+			<form:input path="email" items="${survey.email}" placeholder="example@email.com"/>
+			<form:errors path="email" class="error"/>
 			<br>
 			<br>
 			<label for="state">State of Residence</label>

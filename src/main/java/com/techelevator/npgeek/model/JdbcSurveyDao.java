@@ -1,9 +1,9 @@
 package com.techelevator.npgeek.model;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.sql.DataSource;
 
@@ -19,6 +19,9 @@ private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
 	ParkDao parkDao;
+	
+	@Autowired 
+	SurveyDao surveyDao;
 	
 	@Autowired
 	public JdbcSurveyDao(DataSource ds) {
@@ -68,15 +71,16 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public Map<Park, Integer> getTopParks() {
-		Map<Park, Integer> topParks = new LinkedHashMap<>();
-		String statement = "SELECT parkcode, COUNT(*) FROM survey_result GROUP BY parkcode ORDER BY COUNT(*) DESC";
+	public List<Map<String, Integer>> getTopParks() {
+		List<Map<String, Integer>> topParks = new ArrayList<>();
+		String statement = "SELECT parkcode, COUNT(*) as votes FROM survey_result GROUP BY parkcode ORDER BY votes DESC LIMIT 5";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(statement);
 		while(results.next()) {
 			String parkCode = results.getString("parkcode");
-			Integer surveyAmount = results.getInt("count");
-			Park newPark = parkDao.getParkByCode(parkCode);
-			topParks.put(newPark, surveyAmount);
+			Integer surveyAmount = results.getInt("votes");
+			Map<String, Integer> addVotes = new TreeMap<>();
+			addVotes.put(parkCode, surveyAmount);
+			topParks.add(addVotes);
 		}
 		return topParks;
 	}
