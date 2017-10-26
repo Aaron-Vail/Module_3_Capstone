@@ -41,12 +41,17 @@ public class ParkController {
 	}
 	
 	@RequestMapping(path="/view/{parkCode}", method=RequestMethod.GET)
-	public String showParkDetail (@PathVariable String parkCode,
-									ModelMap modelHandler) {
+	public String showParkDetail(@PathVariable String parkCode,
+									ModelMap modelHolder) {
 		
 		Park park = parkDao.getParkByCode(parkCode);
-		modelHandler.put("park", park);
-		
+		modelHolder.addAttribute("park", parkDao.getParkByCode(parkCode));
+		modelHolder.addAttribute("weatherList", weatherDao.getWeatherByParkCode(parkCode));	
+				for(Park p : parkDao.getAllParks()){
+					if(p.getParkCode().equals(parkCode)){
+						modelHolder.put("park", p);
+					}
+				}
 		return "view";	
 	}
 	

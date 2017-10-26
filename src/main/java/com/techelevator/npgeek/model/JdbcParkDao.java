@@ -53,8 +53,8 @@ public class JdbcParkDao implements ParkDao {
 		park.setClimate(row.getString("climate"));
 		park.setYearFounded(row.getInt("yearfounded"));
 		park.setAnnualVisitors(row.getInt("annualvisitorcount"));
-		park.setInspQuote(row.getString("inspirationalquote"));
-		park.setInspQuoteSource(row.getString("inspirationalquotesource"));
+		park.setInspirationalQuote(row.getString("inspirationalQuote"));
+		park.setInspirationalQuoteSource(row.getString("inspirationalQuoteSource"));
 		park.setParkDescription(row.getString("parkdescription"));
 		park.setEntryFee(row.getInt("entryfee"));
 		park.setNumberOfSpecies(row.getInt("numberofanimalspecies"));

@@ -12,8 +12,8 @@ public class Park {
 		private String climate; 
 		private int yearFounded;
 		private int annualVisitors;
-		private String inspQuote;
-		private String inspQuoteSource;
+		private String inspirationalQuote;
+		private String inspirationalQuoteSource;
 		private String parkDescription;
 		private int entryFee;
 		private int numberOfSpecies;
@@ -78,17 +78,17 @@ public class Park {
 		public void setAnnualVisitors(int annualVisitors) {
 			this.annualVisitors = annualVisitors;
 		}
-		public String getInspQuote() {
-			return inspQuote;
+		public String getInspirationalQuote() {
+			return inspirationalQuote;
 		}
-		public void setInspQuote(String inspQuote) {
-			this.inspQuote = inspQuote;
+		public void setInspirationalQuote(String inspirationalQuote) {
+			this.inspirationalQuote = inspirationalQuote;
 		}
-		public String getInspQuoteSource() {
-			return inspQuoteSource;
+		public String getInspirationalQuoteSource() {
+			return inspirationalQuoteSource;
 		}
-		public void setInspQuoteSource(String inspQuoteSource) {
-			this.inspQuoteSource = inspQuoteSource;
+		public void setInspirationalQuoteSource(String inspirationalQuoteSource) {
+			this.inspirationalQuoteSource = inspirationalQuoteSource;
 		}
 		public String getParkDescription() {
 			return parkDescription;

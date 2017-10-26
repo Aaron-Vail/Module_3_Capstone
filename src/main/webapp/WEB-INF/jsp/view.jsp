@@ -47,7 +47,7 @@
 				</tr>
 				<tr>
 					<th>Year Founded</th>
-					<td><c:out value="${park.yearfounded}"/></td>
+					<td><c:out value="${park.yearFounded}"/></td>
 				</tr>	
 				<tr>
 					<th>Annual Visitors</th>
@@ -55,7 +55,8 @@
 				</tr>
 				<tr>
 					<th>Quote</th>
-					<td><c:out value="${park.inspQuot}"/> -<c:out value="${park.inspQuoteSource}"/></td>
+					<td><c:out value="${park.inspirationalQuote}"/><br><br>
+					 -<c:out value="${park.inspirationalQuoteSource}"/></td>
 				</tr>
 				<tr>
 					<th>Entry Fee</th>
