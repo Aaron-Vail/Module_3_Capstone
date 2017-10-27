@@ -5,7 +5,7 @@ public class Survey {
 	private int surveyId;
 	private String parkCode;
 	private String email;
-	private String State;
+	private String state;
 	private String activityLevel;
 	
 	public int getSurveyId() {
@@ -27,10 +27,10 @@ public class Survey {
 		this.email = email;
 	}
 	public String getState() {
-		return State;
+		return state;
 	}
 	public void setState(String state) {
-		State = state;
+		this.state = state;
 	}
 	public String getActivityLevel() {
 		return activityLevel;

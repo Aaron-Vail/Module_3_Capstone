@@ -2,8 +2,6 @@ package com.techelevator.npgeek.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import javax.sql.DataSource;
 
@@ -53,11 +51,7 @@ private JdbcTemplate jdbcTemplate;
 	@Override
 	public void save(Survey survey) {
 		String sqlInsertSurvey = "INSERT INTO survey_result (parkcode, emailaddress, state, activitylevel) VALUES (?, ?, ?, ?)";
-		String parkCode = survey.getParkCode();
-		String emailAddress = survey.getEmail();
-		String state = survey.getState();
-		String activityLevel = survey.getActivityLevel();
-		jdbcTemplate.update(sqlInsertSurvey, parkCode, emailAddress, state, activityLevel);	
+		jdbcTemplate.update(sqlInsertSurvey, survey.getParkCode(), survey.getEmail(), survey.getState(), survey.getActivityLevel());
 	}
 	
 	private Survey mapRowToSurvey(SqlRowSet row) {
@@ -71,17 +65,17 @@ private JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public List<Map<String, Integer>> getTopParks() {
-		List<Map<String, Integer>> topParks = new ArrayList<>();
-		String statement = "SELECT parkcode, COUNT(*) as votes FROM survey_result GROUP BY parkcode ORDER BY votes DESC LIMIT 5";
+	public List<SurveyResults> getTopParks() {
+		List<SurveyResults> topParks = new ArrayList<>();
+		String statement = "SELECT parkcode, COUNT(*) as votes FROM survey_result GROUP BY parkcode HAVING count(*) > 0 ORDER BY count(*) DESC LIMIT 5";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(statement);
 		while(results.next()) {
-			String parkCode = results.getString("parkcode");
-			Integer surveyAmount = results.getInt("votes");
-			Map<String, Integer> addVotes = new TreeMap<>();
-			addVotes.put(parkCode, surveyAmount);
-			topParks.add(addVotes);
+			SurveyResults surveyResult = new SurveyResults();
+			surveyResult.setParkCode(results.getString("parkcode"));
+			surveyResult.setVotes(results.getInt("votes"));
+			topParks.add(surveyResult);
 		}
+		
 		return topParks;
 	}
 }

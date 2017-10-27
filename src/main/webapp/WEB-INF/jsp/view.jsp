@@ -68,22 +68,67 @@
 				</tr>
 			</table>
 			<form>
-				<label for="tempType">&#x2103;</label>
-				<input type="radio" name="temperature" value="celsius" id="tempType"/>
-				<label for="tempType2">&#x2109;</label>
-				<input type="radio" name="temperature" value="fahrenheit" id="tempType2" checked/>
+				<c:choose>
+					<c:when test="${celsius == true}">
+					<c:set var="celsius" scope="session" value="${(fahrenheit-32)/1.8}"/>
+						<label for="tempType">&#x2103;</label>
+						<input type="radio" name="temperature" value="celsius" id="tempType"/>
+					</c:when>
+					<c:otherwise>
+						<label for="tempType2">&#x2109;</label>
+						<input type="radio" name="temperature" value="fahrenheit" id="tempType2" checked/>
+					</c:otherwise>
+				</c:choose>
 			</form>
-			<%-- <c:if test="${weather.parkCode == park.parkCode}"> --%>
-			<c:forEach var="weather" items="${weather}">
-				<div>
-					<c:url var="forecastImagePath" value="/img/weather/${weather.forecast}.png"/>
-					<img src="${forecastImagePath}" alt="Colors"/>
-					<%-- <c:choose >
-						
-					</c:choose>  --%>
-				</div>
-			</c:forEach> 
-			<%-- </c:if> --%>
+				<c:forEach var="weather" items="${weathers}" varStatus="status">
+				<div
+				<c:if test="${status.first}">
+				class="today"
+				</c:if>
+				
+				>
+				<c:out value="Low: ${weather.lowTemp}. High: ${weather.highTemp}"/>
+				<c:out value="${weather.day}"/>
+					<c:choose>
+						<c:when test="${weather.forecast == 'partly cloudy'}">
+							<c:url var="pc" value="/img/weather/partlyCloudy.png"/>
+							<img src="${pc}" alt="Image of Weather"/>
+						</c:when>
+						<c:otherwise>
+							<c:url var="forecastImagePath" value="/img/weather/${weather.forecast}.png"/>
+							<img src="${forecastImagePath}" alt="Image of Weather"/>	
+						</c:otherwise>
+					</c:choose>		
+					<c:if test="${weather.highTemp > 75}">
+						<p>Bring an extra gallon of water.</p>
+					</c:if>
+					<c:if test="${weather.highTemp - weather.lowTemp > 20}">
+						<p>Wear breathable layers.</p>
+					</c:if>
+					<c:if test="${weather.lowTemp < 20}">
+						<p>Beware! Exposure to frigid air my cause frostbite!</p>
+					</c:if>
+					<c:if test="${weather.forecast == 'snow'}">
+						<p>Pack snow shoes, noob!</p>
+						<c:out value="Low: ${weather.lowTemp}. High: ${weather.highTemp}"/>
+					</c:if>
+					<c:if test="${weather.forecast == 'rain'}">
+						<p>Pack rain gear and waterproof shoes, scrub!</p>
+						<c:out value="Low: ${weather.lowTemp}. High: ${weather.highTemp}"/>
+					</c:if>
+					<c:if test="${weather.forecast == 'thunderstorm'}">
+						<p>Seek shelter and avoid hiking on exposed ridges, ya idiot!</p>
+						<c:out value="Low: ${weather.lowTemp}. High: ${weather.highTemp}"/>					
+					</c:if>
+					<c:if test="${weather.forecast == 'sunny'}">
+						<p>Pack sunblock and don't forget to bring a towel! Or... you know... cancer.</p>
+						<c:out value="Low: ${weather.lowTemp}. High: ${weather.highTemp}"/>
+					</c:if> 
+					<c:if test="${weather.forecast == 'partly cloudy'}">
+						<c:out value="Low: ${weather.lowTemp}. High: ${weather.highTemp}"/>
+					</c:if>
+					</div>
+				</c:forEach> 
 		</div>
 	</section>
 </body>

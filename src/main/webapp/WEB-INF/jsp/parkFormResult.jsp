@@ -16,12 +16,13 @@
 	</nav>
 	<section>
 		<h2>Favorite Parks</h2>
-		<c:forEach var="park" items="park">
+		<c:forEach var="surveys" items="${surveys}">
 			<div>
-				<c:url var="parkImagePath" value="/img/parks/${park.parkCode}.jpg"/>
-				<img src="${parkImagePath}" alt="Image of a park">
-				<c:out value="${park.parkName}"/>
-				<%-- <c:out value="${survey.}"/> --%>
+				<c:url var="parkImagePath" value="${surveys.parkCode}"/>
+				<img src="${parkImagePath}"/>
+				
+				<c:out value="${surveys.parkCode}"/>
+				<c:out value="${surveys.votes}"/>
 			</div>
 		</c:forEach>
 		<div>

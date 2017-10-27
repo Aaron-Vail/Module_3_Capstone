@@ -1,13 +1,13 @@
 package com.techelevator.npgeek.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +17,7 @@ import com.techelevator.npgeek.model.Park;
 import com.techelevator.npgeek.model.ParkDao;
 import com.techelevator.npgeek.model.Survey;
 import com.techelevator.npgeek.model.SurveyDao;
+import com.techelevator.npgeek.model.SurveyResults;
 import com.techelevator.npgeek.model.Weather;
 import com.techelevator.npgeek.model.WeatherDao;
 
@@ -46,18 +47,18 @@ public class ParkController {
 									ModelMap modelHolder,
 									HttpSession session) {
 		
-		Park park = parkDao.getParkByCode(parkCode);
-		modelHolder.addAttribute("park", park);
-		modelHolder.addAttribute("weatherList", weatherDao.getWeatherByParkCode(parkCode));	
-				for(Park p : parkDao.getAllParks()){
-					if(p.getParkCode().equals(parkCode)){
-						modelHolder.put("park", p);
-					}
-				}
+		Park park = parkDao.getParkByCode(parkCode.toUpperCase());
+		List<Weather> weathers = weatherDao.getWeatherByParkCode(parkCode.toUpperCase());
 		
-		List<Weather> forecast = weatherDao.getWeatherByParkCode(parkCode);
+		modelHolder.put("park", park);
+		modelHolder.put("weathers", weathers);
 		
-		modelHolder.put("weather", forecast);
+		if(session.getAttribute("parkCode") == null) {
+			session.setAttribute("parkCode", new Weather());
+		}
+		
+		Weather weather = (Weather) session.getAttribute("parkCode");
+		weather.getParkCode();
 		
 		return "view";	
 	}
@@ -76,32 +77,21 @@ public class ParkController {
 		return "parkForm";
 	}
 	
-	@RequestMapping(path="/parkForm", method=RequestMethod.POST) 
-	public String postSurveyForm(@RequestParam String parkCode, 
-									@RequestParam String email, 
-									@RequestParam String state, 
-									@RequestParam String activityLevel, 
+	@RequestMapping(path="/parkFormResult", method=RequestMethod.POST) 
+	public String postSurveyForm(@ModelAttribute Survey survey, 
 									HttpSession session) {
 		
-		if(session.getAttribute("survey") == null) {
-			session.setAttribute("survey", new Survey());
-		}
-		
-		Survey survey = (Survey) session.getAttribute("survey");
+		surveyDao.save(survey);
 		
 		
 		return "redirect:/parkFormResult";
 	}
 	
 	@RequestMapping(path="/parkFormResult", method=RequestMethod.GET)
-	public String getSurveyResult(@PathVariable String parkCode, 
-									ModelMap modelHandler) {
+	public String getSurveyResult(ModelMap modelHandler) {
 		
-//		List<Survey> surveys = surveyDao.getTopParks(surveyId);
-		Park park = parkDao.getParkByCode(parkCode);
-		List<Map<String, Integer>> surveys = surveyDao.getTopParks();
-//		
-		modelHandler.put("park", park);
+		List<SurveyResults> surveys = surveyDao.getTopParks();
+		
 		modelHandler.put("surveys", surveys);
 	
 		

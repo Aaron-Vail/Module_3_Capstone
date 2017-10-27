@@ -14,7 +14,7 @@
 			<c:out value="${park.parkName}"/>
 		</div>
 		<div>
-		<c:url var="parkFormUrl" value="/parkForm"/>
+		<c:url var="parkFormUrl" value="/parkFormResult"/>
 			<form:form method="POST" action="${parkFormUrl}" modelAttribute="survey">
 			<label for="parkCode">Select Favorite Park</label>
 			<form:select path="parkCode">
