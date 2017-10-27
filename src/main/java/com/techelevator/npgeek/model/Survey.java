@@ -15,7 +15,7 @@ public class Survey {
 		this.surveyId = surveyId;
 	}
 	public String getParkCode() {
-		return parkCode;
+		return parkCode.toLowerCase();
 	}
 	public void setParkCode(String parkCode) {
 		this.parkCode = parkCode;

@@ -63,6 +63,14 @@ public class ParkController {
 		return "view";	
 	}
 	
+	@RequestMapping(path="/tempSave", method=RequestMethod.POST)
+	public String showInView(@RequestParam String temperature, @RequestParam String parkCode, HttpSession session) {
+		
+		session.setAttribute("temperature", temperature);
+		
+		return "redirect:/view/" + parkCode;
+	}
+	
 	@RequestMapping(path="/parkForm", method=RequestMethod.GET)
 	public String getSurveyForm(ModelMap modelHolder) {
 		
@@ -91,8 +99,10 @@ public class ParkController {
 	public String getSurveyResult(ModelMap modelHandler) {
 		
 		List<SurveyResults> surveys = surveyDao.getTopParks();
+		List<Park> parkList = parkDao.getAllParks();
 		
 		modelHandler.put("surveys", surveys);
+		modelHandler.put("parks", parkList);
 	
 		
 		return "parkFormResult";
