@@ -5,12 +5,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="css/park.css" media="screen">
 <title>ParkLyfe</title>
 </head>
 <body>
+	
 	<nav class="top-nav">
+	<c:url var="geekPath" value="/img/logo.png"/>
+	<img src="${geekPath}" class="logo"/>
 		<ul class="nav-bar">
-			<li>Home</li>
-			<li>Survey</li>
+			<c:url var="homePath" value="/"/>
+			<li><a href="${homePath}">HOME</a></li>
+			<li>|</li>	
+			<c:url var="surveyPath" value="/parkForm"/>
+			<li><a href="${surveyPath}">SURVEY</a></li>
 		</ul>
 	</nav>

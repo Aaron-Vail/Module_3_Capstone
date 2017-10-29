@@ -1,9 +1,12 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="pageTitle" value="view/${park.parkCode}"/>
 <%@ include file="common/header.jspf" %>
-	<section>
-		<div>
+
+	<section class="view-section">
+		<div class= "info-view">
 			<div>
 				<c:url var="parkImagePath" value="/img/parks/${park.parkCode}.jpg"/>
-				<img src="${parkImagePath}" alt="Image of a park">
+				<img src="${parkImagePath}" alt="Image of a park" class="view-image">
 			</div>
 			<div>
 				<h1><c:out value="${park.parkName}"/></h1>
@@ -11,7 +14,7 @@
 			<div>
 				<p><c:out value="${park.parkDescription}"/></p>
 			</div>
-			<table>
+			<table class="view-table">
 				<tr>
 					<th>State</th>
 					<td><c:out value="${park.state}"/></td>
@@ -58,6 +61,8 @@
 					<td><c:out value="${park.numberOfSpecies}"/></td>
 				</tr>
 			</table>
+		</div>
+			<div>
 			<c:url var="tempChangePathing" value="/tempSave"/>
 			<form method="POST" action="${tempChangePathing}">
 				<input type="hidden" name="parkCode" value="${park.parkCode}"/>
@@ -72,6 +77,7 @@
 					</c:otherwise>
 				</c:choose>
 			</form>
+			</div>
 				<c:forEach var="weather" items="${weathers}" varStatus="status">
 					<div
 						<c:if test="${status.first}">

@@ -1,19 +1,19 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="common/header.jspf" %>
-	<section>
-		<div>
-			<c:out value="${park.parkName}"/>
-		</div>
-		<div>
-		<c:url var="parkFormUrl" value="/parkFormResult"/>
+	<section class="form-section">
+		<div class="park-form">
+		<c:url var="parkFormUrl" value="/parkForm"/>
 			<form:form method="POST" action="${parkFormUrl}" modelAttribute="survey">
 			<label for="parkCode">Select Favorite Park</label>
-			<form:select path="parkCode">
+			<%-- <form method="POST" action="${parkFormUrl}"> --%>
+			<%-- <form:select path="parkCode"> --%><%--Commented select statements broke page. Unsure as to why. --%>
+			<select name="select">
 				<c:forEach var="park" items="${parks}">
-					<form:option value="${park.parkCode}">${park.parkName}</form:option>
+					<option value="${park.parkCode}">${park.parkName}</option>
 					</c:forEach>
-			</form:select>
-			
+			</select>
+			<%-- </form:select> --%>
+			<%-- </form> --%>
 			<label for="email">Email Address</label>
 			<form:input path="email" items="${survey.email}" placeholder="example@email.com"/>
 			<form:errors path="email" class="error"/>

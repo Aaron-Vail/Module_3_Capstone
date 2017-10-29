@@ -1,0 +1,124 @@
+/******HEADER******/
+
+body {
+	background: #888;
+}
+
+li {
+	display: inline-block;
+	font-size: 2vw;
+}
+
+a {
+	text-decoration: none;
+	color: #fff;
+	margin: 20px;	
+}
+
+ul {
+	flex: 3;
+	margin-top:30px;
+}
+
+.top-nav {
+	display: flex;
+	background: rgba(0, 0, 0, 1);
+	position: fixed;
+	color: #fff;
+	width: 100%;
+	height: 75px;
+	top: 0;
+}
+
+.logo {
+	width: 150px;
+	flex: 1;
+}
+
+/******PARK PAGE******/
+
+.park-img {
+	width: 300px;
+	height: 200px;
+	box-shadow: #222 5px 5px 5px;
+	border-radius: 10px;
+}
+
+.park-section {
+	color: #fff;
+	text-shadow: #222 5px 5px 5px;
+	margin-top: 100px;
+}
+
+.park-form {
+	background-color: rgba(40, 40, 40, 0.8);
+	box-shadow: #222 5px 5px 5px;
+}
+
+.park-info {
+	background-color: rgba(40, 40, 40, 0.8);
+	display: flex;
+	width: 90%;
+	height:auto;
+	margin: 10px;
+	border-radius: 10px;
+	box-shadow: #222 5px 5px 5px;
+	overflow: hidden;
+}
+
+.park-img {
+	flex:: 1;
+	margin: 10px;
+}
+
+.park-stuff {
+	display: block;
+	flex: 3;
+	margin: 10px;
+	height: 25%;
+}
+
+/******VIEW PAGE******/
+
+
+/******FORM PAGE******/
+
+.form-section {
+	display: flex;
+	margin-top: 100px;
+}
+
+.park-form {
+	display: flex;
+	background-color: rgba(40, 40, 40, 0.8);
+	color: #fff;
+	text-shadow: #222 5px 5px 5px;
+	border-radius: 10px;
+	padding: 20px;
+	width: 50%;
+}
+/******RESULT PAGE******/
+
+.survey-result {
+	display: flex;
+	background-color: rgba(40, 40, 40, 0.8);
+	color: #fff;
+	text-shadow: #222 5px 5px 5px;
+	margin-top: 100px;
+	box-shadow: #222 5px 5px 5px;
+	border-radius: 10px;
+}
+
+.result-img {
+	flex: 1;
+	margin: 20px;
+	width: 200px;
+	box-shadow: #222 5px 5px 5px;
+	border-radius: 10px;
+}
+
+.result-info {
+	flex: 2;
+	margin: 20px;
+	font-size: 1.5vw;
+}
