@@ -8,10 +8,10 @@
 				<c:url var="parkImagePath" value="/img/parks/${park.parkCode}.jpg"/>
 				<img src="${parkImagePath}" alt="Image of a park" class="view-image">
 			</div>
-			<div>
+			<div class="park-name">
 				<h1><c:out value="${park.parkName}"/></h1>
 			</div>
-			<div>
+			<div class="park-name">
 				<p><c:out value="${park.parkDescription}"/></p>
 			</div>
 			<table class="view-table">
@@ -62,23 +62,24 @@
 				</tr>
 			</table>
 		</div>
-			<div>
+			<div class="btn">
 			<c:url var="tempChangePathing" value="/tempSave"/>
-			<form method="POST" action="${tempChangePathing}">
+			<form method="POST" action="${tempChangePathing}" class="form">
 				<input type="hidden" name="parkCode" value="${park.parkCode}"/>
 				<c:choose>
 					<c:when test="${temperature == 'celsius'}">
-						<label for="tempType">&#x2103;</label>
-						<input type="submit" name="temperature" value="fahrenheit" id="tempType2"/>
+						<label for="tempType">Current Temperature Scale: &#x2103;</label>
+						<input type="submit" name="temperature" value="Fahrenheit" class="temp-btn"/>
 					</c:when>
 					<c:otherwise>
-						<label for="tempType2">&#x2109;</label>						
-						<input type="submit" name="temperature" value="celsius" id="tempType"/>
+						<label for="tempType2">Current Temperature Scale: &#x2109;</label>						
+						<input type="submit" name="temperature" value="Celsius" class="temp-btn"/>
 					</c:otherwise>
 				</c:choose>
 			</form>
 			</div>
 				<c:forEach var="weather" items="${weathers}" varStatus="status">
+				<div class="flex">
 					<div
 						<c:if test="${status.first}">
 						class="today"
@@ -87,9 +88,19 @@
 						class="another-day"
 						</c:if>
 						>
-						<c:out value="${weather.day})"/>
-						<c:out value="Low: ${temperature == 'celsius' ? (weather.lowTemp -32)/1.8 : weather.lowTemp}. High: ${temperature == 'celsius' ? (weather.highTemp -32)/1.8 : weather.highTemp}"/>
-						<div>
+						<c:choose>
+							<c:when test="${weather.forecast == 'partly cloudy'}">
+								<c:url var="pc" value="/img/weather/partlyCloudy.png"/>
+								<img src="${pc}" alt="Image of Weather" class="forecast-img"/>
+							</c:when>
+							<c:otherwise>
+								<c:url var="forecastImagePath" value="/img/weather/${weather.forecast}.png"/>
+								<img src="${forecastImagePath}" alt="Image of Weather" class="forecast-img"/>	
+							</c:otherwise>
+						</c:choose>	
+						<div class="forecast-info">
+							<c:out value="${weather.day})"/>
+							<c:out value="Low: ${temperature == 'celsius' ? (weather.lowTemp -32)/1.8 : weather.lowTemp}. High: ${temperature == 'celsius' ? (weather.highTemp -32)/1.8 : weather.highTemp}"/>
 							<c:if test="${weather.highTemp > 75}">
 								<p>Bring an extra gallon of water.</p>
 							</c:if>
@@ -103,28 +114,20 @@
 								<p>Pack snow shoes, noob!</p>
 							</c:if>
 							<c:if test="${weather.forecast == 'rain'}">
-								<p>Pack rain gear and waterproof shoes, scrub!</p>
+								<p>Pack rain gear and waterproof shoes!</p>
 							</c:if>
 							<c:if test="${weather.forecast == 'thunderstorms'}">
-								<p>Seek shelter and avoid hiking on exposed ridges, ya idiot!</p>				
+								<p>Seek shelter and avoid hiking on exposed ridges!</p>				
 							</c:if>
 							<c:if test="${weather.forecast == 'sunny'}">
-								<p>Pack sunblock and don't forget to bring a towel! Or... you know... cancer.</p>
+								<p>Pack sunblock and don't forget to bring a towel!</p>
 							</c:if> 
 							<c:if test="${weather.forecast == 'partly cloudy'}">
 							</c:if>
 						</div>
-					<c:choose>
-						<c:when test="${weather.forecast == 'partly cloudy'}">
-							<c:url var="pc" value="/img/weather/partlyCloudy.png"/>
-							<img src="${pc}" alt="Image of Weather"/>
-						</c:when>
-						<c:otherwise>
-							<c:url var="forecastImagePath" value="/img/weather/${weather.forecast}.png"/>
-							<img src="${forecastImagePath}" alt="Image of Weather"/>	
-						</c:otherwise>
-					</c:choose>	
+					
 					</div>
+				</div>
 				</c:forEach>
 	</section>
 </body>
