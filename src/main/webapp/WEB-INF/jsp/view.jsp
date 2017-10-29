@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="view/${park.parkCode}"/>
+<c:set var="pageTitle" value="Park View"/>
 <%@ include file="common/header.jspf" %>
 
 	<section class="view-section">
